@@ -290,6 +290,15 @@ func (m *Sealing) handleCommitWait(ctx statemachine.Context, sector SectorInfo) 
 
 	return ctx.Send(SectorProving{})
 }
+func (m *Sealing) handleComplete(ctx statemachine.Context, sector SectorInfo) error {
+	// TODO: Maybe wait for some finality
+
+	if err := m.sealer.Complete(ctx.Context(), m.minerSector(sector.SectorNumber)); err != nil {
+		return ctx.Send(SectorCompleteFailed{xerrors.Errorf("complete sector: %w", err)})
+	}
+
+	return ctx.Send(SectorCompleted{})
+}
 
 func (m *Sealing) handleFinalizeSector(ctx statemachine.Context, sector SectorInfo) error {
 	// TODO: Maybe wait for some finality

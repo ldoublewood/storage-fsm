@@ -11,7 +11,7 @@ require (
 	github.com/filecoin-project/go-statemachine v0.0.0-20200226041606-2074af6d51d9
 	github.com/filecoin-project/sector-storage v0.0.0-20200411000242-61616264b16d
 	github.com/filecoin-project/specs-actors v0.2.0
-	github.com/filecoin-project/specs-storage v0.0.0-20200410185809-9fbaaa08f275
+	github.com/filecoin-project/specs-storage v0.0.0
 	github.com/ipfs/go-cid v0.0.5
 	github.com/ipfs/go-datastore v0.4.4
 	github.com/ipfs/go-hamt-ipld v0.0.15-0.20200204200533-99b8553ef242 // indirect
@@ -31,5 +31,7 @@ require (
 )
 
 replace github.com/golangci/golangci-lint => github.com/golangci/golangci-lint v1.18.0
+
+replace github.com/filecoin-project/specs-storage => ../extern/specs-storage
 
 replace github.com/filecoin-project/filecoin-ffi => ./extern/filecoin-ffi

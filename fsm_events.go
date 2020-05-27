@@ -153,13 +153,18 @@ type SectorProving struct{}
 func (evt SectorProving) apply(*SectorInfo) {}
 
 type SectorFinalized struct{}
+type SectorCompleted struct{}
 
 func (evt SectorFinalized) apply(*SectorInfo) {}
+func (evt SectorCompleted) apply(*SectorInfo) {}
 
 type SectorFinalizeFailed struct{ error }
+type SectorCompleteFailed struct{ error }
 
 func (evt SectorFinalizeFailed) FormatError(xerrors.Printer) (next error) { return evt.error }
+func (evt SectorCompleteFailed) FormatError(xerrors.Printer) (next error) { return evt.error }
 func (evt SectorFinalizeFailed) apply(*SectorInfo)                        {}
+func (evt SectorCompleteFailed) apply(*SectorInfo)                        {}
 
 // Failed state recovery
 

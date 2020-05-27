@@ -15,7 +15,9 @@ const (
 	Committing     SectorState = "Committing"
 	CommitWait     SectorState = "CommitWait" // waiting for message to land on chain
 	FinalizeSector SectorState = "FinalizeSector"
-	Proving        SectorState = "Proving"
+	Complete       SectorState = "Complete"
+
+	Proving SectorState = "Proving"
 	// error modes
 	FailedUnrecoverable SectorState = "FailedUnrecoverable"
 	SealFailed          SectorState = "SealFailed"
