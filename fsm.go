@@ -62,9 +62,12 @@ var fsmPlanners = map[SectorState]func(events []statemachine.Event, state *Secto
 		on(SectorProving{}, FinalizeSector),
 		on(SectorCommitFailed{}, CommitFailed),
 	),
-
 	FinalizeSector: planOne(
-		on(SectorFinalized{}, Proving),
+		on(SectorFinalized{}, Complete),
+	),
+
+	Complete: planOne(
+		on(SectorCompleted{}, Proving),
 	),
 
 	Proving: planOne(
@@ -191,6 +194,8 @@ func (m *Sealing) plan(events []statemachine.Event, state *SectorInfo) (func(sta
 		return m.handleCommitWait, nil
 	case FinalizeSector:
 		return m.handleFinalizeSector, nil
+	case Complete:
+		return m.handleComplete, nil
 	case Proving:
 		// TODO: track sector health / expiration
 		log.Infof("Proving sector %d", state.SectorNumber)
