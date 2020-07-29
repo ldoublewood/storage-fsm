@@ -296,8 +296,9 @@ func (m *Sealing) newSectorCC(sid abi.SectorNumber, pieces []Piece) error {
 	} else {
 		log.Infof("Creating CC2 sector %d", sid)
 		return m.sectors.Send(uint64(sid), SectorStartCC2{
-			ID:         sid,
-			SectorType: rt,
+			ID:            sid,
+			SectorType:    rt,
+			NoaddPieceFlg: true,
 		})
 	}
 }

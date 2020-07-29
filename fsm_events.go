@@ -77,13 +77,15 @@ func (evt SectorStartCC) apply(state *SectorInfo) {
 }
 
 type SectorStartCC2 struct {
-	ID         abi.SectorNumber
-	SectorType abi.RegisteredSealProof
+	ID            abi.SectorNumber
+	SectorType    abi.RegisteredSealProof
+	NoaddPieceFlg bool
 }
 
 func (evt SectorStartCC2) apply(state *SectorInfo) {
 	state.SectorNumber = evt.ID
 	state.SectorType = evt.SectorType
+	state.NoaddPieceFlg = evt.NoaddPieceFlg
 }
 
 type SectorAddPiece struct {
