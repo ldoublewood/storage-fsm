@@ -232,9 +232,13 @@ func (evt SectorFinalizeFailed) apply(*SectorInfo)                        {}
 
 // Failed state recovery
 
-type SectorRetrySealPreCommit1 struct{}
+type SectorRetrySealPreCommit1 struct {
+	NoaddPieceFlg bool
+}
 
-func (evt SectorRetrySealPreCommit1) apply(state *SectorInfo) {}
+func (evt SectorRetrySealPreCommit1) apply(state *SectorInfo) {
+	state.NoaddPieceFlg = evt.NoaddPieceFlg
+}
 
 type SectorRetrySealPreCommit2 struct{}
 
