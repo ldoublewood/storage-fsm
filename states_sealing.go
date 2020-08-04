@@ -268,7 +268,7 @@ func (m *Sealing) handleWaitSeed(ctx statemachine.Context, sector SectorInfo) er
 }
 
 func (m *Sealing) handleCommitting(ctx statemachine.Context, sector SectorInfo) error {
-	log.Info("scheduling seal proof computation...")
+	log.Info("scheduling seal proof computation phase1")
 
 	log.Infof("KOMIT %d %x(%d); %x(%d); %v; r:%x; d:%x", sector.SectorNumber, sector.TicketValue, sector.TicketEpoch, sector.SeedValue, sector.SeedEpoch, sector.pieceInfos(), sector.CommR, sector.CommD)
 
@@ -281,6 +281,7 @@ func (m *Sealing) handleCommitting(ctx statemachine.Context, sector SectorInfo) 
 		return ctx.Send(SectorComputeProofFailed{xerrors.Errorf("computing seal proof failed(1): %w", err)})
 	}
 
+	log.Info("scheduling seal proof computation phase2, sector: %d", sector.SectorNumber)
 	proof, err := m.sealer.SealCommit2(sector.sealingCtx(ctx.Context()), m.minerSector(sector.SectorNumber), c2in)
 	if err != nil {
 		return ctx.Send(SectorComputeProofFailed{xerrors.Errorf("computing seal proof failed(2): %w", err)})
